@@ -31,7 +31,9 @@ public class HomeController {
         List<Film> films = List.of(
             new Film("BÀN TAY DIỆT QUỶ", "Hành Động", " Park Seo Joon", 2021),
             new Film("GODZILLA VS KONG", "Hành Động", "Millie Bobby Brown", 2021),
-            new Film("MORTAL KOMBAT: CUỘC CHIẾN SINH TỬ", "Hành Động", "Lewis Tan", 2021)
+            new Film("MORTAL KOMBAT: CUỘC CHIẾN SINH TỬ", "Hành Động", "Lewis Tan", 2021),
+            new Film("CRUELLA", "Hài, Tâm Lý", "Craig Gillespie", 2021),
+            new Film("FAST & FURIOUS 9", "Hành Động, Phiêu Lưu", "Justin Lin", 2021)
         );
         model.addAttribute("films", films);
         return "film";
