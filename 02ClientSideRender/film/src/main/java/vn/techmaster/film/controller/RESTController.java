@@ -1,31 +1,29 @@
-package vn.techmaster.book.controller;
+package vn.techmaster.film.controller;
 
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 import vn.techmaster.book.model.Film;
 
-@Controller
-@RequestMapping(value ="/")
-public class FilmController {
-  @GetMapping("/")
-  public String showHomePage() {
-    return "index";
-  }
+@RestController
+@CrossOrigin
+@RequestMapping("/api")
+public class RESTController {
+
   @GetMapping("/films")
-  public String listBooks(Model model) {
+  public ResponseEntity<List<Film>> listFilms() {
     List<Film> films = List.of(
       new Film("Gone with the Wind", "action", "Victor Fleming, David O. Selznick", 1939),
       new Film("Bố Già", "action", "Trấn Thành", 2020),
       new Film("Parasite", "action", "Bong Joon-ho", 2019),
       new Film("Money Heist", "action", "Álex Pina", 2018)
     );
-    model.addAttribute("films", films);
-    return "film";
+    return ResponseEntity.ok().body(films);
   }
 }

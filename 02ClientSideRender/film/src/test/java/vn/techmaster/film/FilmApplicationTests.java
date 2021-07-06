@@ -1,10 +1,10 @@
-package vn.techmaster.book;
+package vn.techmaster.film;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookApplicationTests {
+class FilmApplicationTests {
 
 	@Test
 	void contextLoads() {

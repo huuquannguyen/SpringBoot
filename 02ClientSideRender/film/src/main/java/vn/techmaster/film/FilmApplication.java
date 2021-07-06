@@ -1,4 +1,4 @@
-package vn.techmaster.book;
+package vn.techmaster.film;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
