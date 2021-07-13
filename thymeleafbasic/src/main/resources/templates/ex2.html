@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise_2</title>
+</head>
+<body>
+    <form action="" th:object="${input}" method="POST">
+        <div style="margin-bottom: 10px;">
+            <label for="num1" style="margin-right: 10px;">A</label>
+            <input id="num1" type="number" th:field="*{nums1}">
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="num2" style="margin-right: 10px;">B</label>
+            <input id="num2" type="number" th:field="*{nums2}">
+        </div>
+        <button type="submit" style="margin-left: 75px;">Add</button>
+    </form>
+    <div>
+        Result: <span th:text = "${result}"></span>
+    </div>
+</body>
+</html>

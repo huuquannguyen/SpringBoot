@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise_1</title>
+</head>
+<body style="display: flex; justify-content: center;">
+    <table style="border-collapse: collapse; ">
+        <tr th:each = "person : ${people}" style="border-collapse: collapse;">
+            <td class="pic"  style="border: 1px solid black ;">pic goes here</td>
+            <td class="info">
+                <ul style="list-style-type: none;">
+                    <li th:text = "${person.name}"></li>
+                    <li th:text = "${person.nationality}"></li>
+                    <li th:text = "${person.birthdate}"></li>
+                    <li th:text = "${person.gender}"></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
