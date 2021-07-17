@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -30,7 +33,7 @@ public class PersonDao extends Dao<Person> {
             CsvSchema schema = CsvSchema.emptySchema().withHeader().withColumnSeparator('|');
             ObjectReader oReader = mapper.readerFor(Person.class).with(schema);
             Reader reader = new FileReader(file);
-            MappingIterator<Person> mi = oReader.readValue(reader);
+            MappingIterator<Person> mi = oReader.readValues(reader);
             while(mi.hasNext()){
                 Person person = mi.next();
                 this.add(person);
@@ -57,5 +60,37 @@ public class PersonDao extends Dao<Person> {
         }
         t.setId(id);
         collections.add(t);
+    }
+
+    @Override
+    public Optional<Person> get(int id) {
+        return collections.stream().filter(u -> u.getId() == id).findFirst();
+    }
+
+    @Override
+    public void update(Person t) {
+        get(t.getId()).ifPresent(p -> {p.setName(t.getName());
+                                       p.setJob(t.getJob());
+                                       p.setGender(t.isGender());
+                                       p.setBirthDay(t.getBirthDay());
+        });
+    }
+
+    @Override
+    public void deleteByID(int id) {
+        get(id).ifPresent(p -> collections.remove(p));
+    }
+
+    @Override
+    public void delete(Person t) {
+        deleteByID(t.getId());
+    }
+
+    @Override
+    public List<Person> searchByKeyword(String keyword) {
+        return collections
+        .stream()
+        .filter(p -> p.matchByKeyword(keyword))
+        .collect(Collectors.toList());
     }
 }

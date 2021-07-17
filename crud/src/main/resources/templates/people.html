@@ -7,8 +7,15 @@
     <title>People</title>
 </head>
 <body>
+    <form method="POST" th:object = "${search}">
+        <input type="text" th:field = "*{keyWord}" placeholder="S e a r ch . . .">
+        <button type="submit"> Search </button>
+    </form>
     <ul>
-        <li th:each = "person : ${people}" th:text = "${person.name}"></li>
+        <li th:each = "person : ${people}">
+            <a th:href="@{/people/{id}(id=${person.id})}" th:text = "${person.id} + ' : ' + ${person.name}"></a>
+        </li>
     </ul>
+    <h2><a th:href="@{/people/add}">Add Person</a></h2>
 </body>
 </html>

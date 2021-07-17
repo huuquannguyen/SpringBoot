@@ -12,13 +12,15 @@ public abstract class Dao<T> {
   
     public abstract List<T> getAll();
 
-    // public abstract Optional<T> get(int id);
+    public abstract Optional<T> get(int id);
  
     public abstract void add(T t);
 
-    // public abstract void update(T t);
+    public abstract void update(T t);
 
-    // public abstract void deleteByID(int id);
+    public abstract void deleteByID(int id);
 
-    // public abstract void delete(T t);
+    public abstract void delete(T t);
+    
+    public abstract List<T> searchByKeyword(String keyword);
 }

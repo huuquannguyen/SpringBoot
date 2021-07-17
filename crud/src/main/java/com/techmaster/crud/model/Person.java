@@ -5,12 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Person {
     @JsonIgnore
-    private int id;
+    int id;
     
-    private String name;
-    private String job;
-    private boolean gender;
-    private String birthDay;
+    String name;
+    String job;
+    boolean gender;
+    String birthDay;
     
     public int getId() {
         return id;
@@ -41,6 +41,19 @@ public class Person {
     }
     public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
+    }
+    
+    public boolean matchByKeyword(String keyword){
+        String keyGender;
+        if(gender){
+            keyGender = "female";
+        }else{
+            keyGender = "male";
+        } 
+        return (name.toLowerCase().contains(keyword.toLowerCase()) || 
+                job.toLowerCase().contains(keyword.toLowerCase()) ||
+                keyGender.contains(keyword.toLowerCase()) || 
+                birthDay.contains(keyword));
     }
 }
 

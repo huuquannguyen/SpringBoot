@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+</head>
+<body>
+    <h2 th:text = "${person.name}"></h2>
+    <h3 th:text = "${person.job} +  ' : ' + (${person.gender} == true ? Female : Male) + ' : ' + ${person.birthDay}"></h3>
+    <a th:href="@{/people/edit/{id}(id=${person.id})}">Edit Information</a>
+    <span> | </span>
+    <a th:href="@{/people/delete/{id}(id=${person.id})}">Delete Information</a>
+</body>
+</html>

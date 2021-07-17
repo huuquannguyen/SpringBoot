@@ -1,11 +1,20 @@
 package com.techmaster.crud.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import com.techmaster.crud.model.Person;
 import com.techmaster.crud.repository.PersonDao;
+import com.techmaster.crud.request.SearchRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,6 +27,62 @@ public class PeopleController {
     @GetMapping
     public String showPeople(Model model){
         model.addAttribute("people", personDao.getAll());
+        model.addAttribute("search", new SearchRequest());
         return "people";
     }
+
+    @GetMapping(value = "/{id}")
+    public String showDetail(@PathVariable("id") int id, Model model){
+        Optional<Person> person = personDao.get(id);
+        if(person.isPresent()){
+            model.addAttribute("person", person.get());
+        }
+        return "personDetail";
+    }
+
+    @GetMapping("/add")
+    public String addPerson(Model model){
+        model.addAttribute("person", new Person());
+        return "add";
+    }
+
+    @PostMapping("/save")
+    public String processAdd(Person person, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "add";
+        }
+        if(person.getId() > 0){
+            personDao.update(person);
+        }else{
+            personDao.add(person);
+        }
+        return "redirect:/people";  
+    }
+
+    @GetMapping(value = "/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model){
+        Optional<Person> person = personDao.get(id);
+        if(person.isPresent()){
+            model.addAttribute("person", person.get());
+        }
+        return "add";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") int id){
+        personDao.deleteByID(id);
+        return "redirect:/people";
+    }
+
+
+    @PostMapping
+    public String processSearch(SearchRequest searchRequest, BindingResult bindingResult, Model model){
+        if(!bindingResult.hasErrors()){
+            List<Person> list = personDao.searchByKeyword(searchRequest.getKeyWord());
+            model.addAttribute("searchList", list);
+        }
+        return "search";
+    }
+
+
 }
