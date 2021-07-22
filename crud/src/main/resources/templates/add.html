@@ -7,21 +7,27 @@
     <title>Add</title>
 </head>
 <body>
-    <form action="#" th:action="@{/people/save}" th:object = "${person}" method="POST" novalidate="novalidate">
+    <form action="#" th:action="@{/people/save}" th:object = "${person}" method="POST" enctype="multipart/form-data">
         <input type="hidden" placeholder="id" th:field="*{id}"/><br><br>
+        <input type="hidden" placeholder="photoName" th:field="*{photoName}"/><br><br>
+        <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Name Error</p>
         <input type="text" th:field = "*{name}" placeholder="Name"> <br> <br>
+        <p class="text-danger" th:if="${#fields.hasErrors('job')}" th:errors="*{job}" style="color: red;" >Job Error</p>
         <label for="job">Select job: </label>
         <select th:field = "*{job}" id="job">
             <option value="Dev">Developer</option>
             <option value="Singer">Singer</option>
             <option value="Footballer">Footballer</option>
             <option value="Student">Student</option>
-        </select> <br> <br>
+        </select> <br> <br>       
         <label for="isFemale">Female</label>
         <input type="radio" th:field = "*{gender}" value="true" id="isFemale">
         <label for="isFemale">Male</label>
         <input type="radio" th:field = "*{gender}" value="false" id="isFemale"> <br> <br>
+        <p class="text-danger" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}" style="color: red;">Birthday Error</p>
         <input type="date" th:field = "*{birthDay}"> <br> <br>
+        <p class="text-danger" th:if="${#fields.hasErrors('photo')}" th:errors="*{photo}" style="color: red;">Photo Error</p>
+        <input type="file" th:field = "*{photo}"> <br><br>
         <button type="submit">Submit</button>
     </form>
 </body>

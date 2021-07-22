@@ -3,14 +3,18 @@ package com.techmaster.crud.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.techmaster.crud.model.Person;
 import com.techmaster.crud.repository.PersonDao;
 import com.techmaster.crud.request.SearchRequest;
+import com.techmaster.crud.service.PeopleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +27,8 @@ public class PeopleController {
 
     @Autowired
     private PersonDao personDao;
+    @Autowired
+    private PeopleService peopleService;
     
     @GetMapping
     public String showPeople(Model model){
@@ -46,17 +52,21 @@ public class PeopleController {
         return "add";
     }
 
-    @PostMapping("/save")
-    public String processAdd(Person person, BindingResult bindingResult){
+    @PostMapping(value = "/save", consumes = {"multipart/form-data"})
+    public String processAdd(@Valid Person person, BindingResult bindingResult){
+        if(person.getPhoto().getOriginalFilename().isEmpty()){
+            bindingResult.addError(new FieldError("person", "photo", "Photo is required"));
+        }
         if(bindingResult.hasErrors()){
             return "add";
         }
+        peopleService.uploadFile(person.getPhoto());
         if(person.getId() > 0){
             personDao.update(person);
         }else{
             personDao.add(person);
-        }
-        return "redirect:/people";  
+        }      
+        return "Success";
     }
 
     @GetMapping(value = "/edit/{id}")

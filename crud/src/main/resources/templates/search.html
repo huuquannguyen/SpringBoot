@@ -9,6 +9,9 @@
 <body>
     <ul>
         <li th:each = "person : ${searchList}">
+            <a th:href="@{/people/{id}(id=${person.id})}">
+                <img th:src="@{${'/photos/' + person.photoName}}" width="120">
+            </a>
             <a th:href="@{/people/{id}(id=${person.id})}" th:text = "${person.id} + ' : ' + ${person.name} "></a>
         </li>
     </ul>

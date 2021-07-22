@@ -13,9 +13,12 @@
     </form>
     <ul>
         <li th:each = "person : ${people}">
+            <a th:href="@{/people/{id}(id=${person.id})}">
+                <img th:src="@{${'/photos/' + person.photoName}}" width="120">
+            </a>
             <a th:href="@{/people/{id}(id=${person.id})}" th:text = "${person.id} + ' : ' + ${person.name}"></a>
         </li>
     </ul>
-    <h2><a th:href="@{/people/add}">Add Person</a></h2>
+    <h3><a th:href="@{/people/add}">Add Person</a></h3>
 </body>
 </html>

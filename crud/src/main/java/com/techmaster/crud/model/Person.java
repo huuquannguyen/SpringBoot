@@ -1,17 +1,39 @@
 package com.techmaster.crud.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.web.multipart.MultipartFile;
 
 
 public class Person {
     @JsonIgnore
-    int id;
+    private int id;
+    @Size(min = 5, max = 30, message = "Name must between 5 and 30")
+    private String name;
+    @Size(min = 2, max = 30, message = "Job must between 2 and 30")
+    private String job;
+    private boolean gender;
+    @NotBlank(message = "Birthday is required")
+    private String birthDay;
+    private MultipartFile photo;
+    private String photoName;
     
-    String name;
-    String job;
-    boolean gender;
-    String birthDay;
     
+    public String getPhotoName() {
+        return photoName;
+    }
+    public void setPhotoName(String photoName) {
+        this.photoName = photoName;
+    }
+    public MultipartFile getPhoto() {
+        return photo;
+    }
+    public void setPhoto(MultipartFile photo) {
+        this.photo = photo;
+    }
     public int getId() {
         return id;
     }

@@ -59,6 +59,7 @@ public class PersonDao extends Dao<Person> {
             id = lastPerson.getId() + 1;      
         }
         t.setId(id);
+        t.setPhotoName(t.getPhoto().getOriginalFilename());
         collections.add(t);
     }
 
@@ -73,6 +74,8 @@ public class PersonDao extends Dao<Person> {
                                        p.setJob(t.getJob());
                                        p.setGender(t.isGender());
                                        p.setBirthDay(t.getBirthDay());
+                                       p.setPhoto(t.getPhoto());
+                                       p.setPhotoName(t.getPhoto().getOriginalFilename());
         });
     }
 
