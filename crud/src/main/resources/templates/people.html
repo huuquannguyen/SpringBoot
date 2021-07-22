@@ -1,24 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>People</title>
-</head>
+
+<head th:replace="template.html :: header('People')"></head>
+
 <body>
-    <form method="POST" th:object = "${search}">
-        <input type="text" th:field = "*{keyWord}" placeholder="S e a r ch . . .">
-        <button type="submit"> Search </button>
-    </form>
-    <ul>
-        <li th:each = "person : ${people}">
-            <a th:href="@{/people/{id}(id=${person.id})}">
-                <img th:src="@{${'/photos/' + person.photoName}}" width="120">
-            </a>
-            <a th:href="@{/people/{id}(id=${person.id})}" th:text = "${person.id} + ' : ' + ${person.name}"></a>
-        </li>
-    </ul>
-    <h3><a th:href="@{/people/add}">Add Person</a></h3>
+    <div class="container"  >
+        <div class="search" style="display: flex; justify-content: center; padding: 30px 0;">
+            <form method="POST" th:object="${search}" style="width: 100%; display: flex; justify-content: center;">
+                <input type="text" th:field="*{keyWord}" placeholder="S e a r ch . . ." style=" border-radius: 3px; display: block; width: 50%; margin-right: 20px; border: 2px solid gray;">
+                <button type="submit" style="border-radius: 3px; border: 1px solid gray;"> Search </button>
+            </form>
+        </div>
+        <!-- <ul>
+            <li th:each = "person : ${people}">
+                <a th:href="@{/people/{id}(id=${person.id})}">
+                    <img th:src="@{${'/photos/' + person.photoName}}" width="120">
+                </a>
+                <a th:href="@{/people/{id}(id=${person.id})}" th:text = "${person.id} + ' : ' + ${person.name}"></a>
+            </li>
+        </ul> -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Picture</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="person : ${people}">
+                    <td>
+                        <a th:href="@{/people/{id}(id=${person.id})}">
+                            <img th:src="@{${'/photos/' + person.photoName}}" width="120">
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/people/{id}(id=${person.id})}" th:text="${person.id}" style="text-decoration: none; color: gray; display: block; height: 100%;"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/people/{id}(id=${person.id})}" th:text="${person.name}" style="text-decoration: none; color: gray; display: block; height: 100%;"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br><br>
+        <div class="btn" style="display: flex; justify-content: center;">
+            <button><a th:href="@{/people/add}" style="text-decoration: none; color: black;">Add Person</a></button>
+        </div>
+
+    </div>
 </body>
+
 </html>
