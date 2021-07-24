@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.techmaster.crud.model.Person;
+import com.techmaster.crud.repository.JobDao;
 import com.techmaster.crud.repository.PersonDao;
 import com.techmaster.crud.request.SearchRequest;
 import com.techmaster.crud.service.PeopleService;
@@ -16,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +29,8 @@ public class PeopleController {
     private PersonDao personDao;
     @Autowired
     private PeopleService peopleService;
+    @Autowired
+    private JobDao jobDao;
     
     @GetMapping
     public String showPeople(Model model){
@@ -49,6 +51,7 @@ public class PeopleController {
     @GetMapping("/add")
     public String addPerson(Model model){
         model.addAttribute("person", new Person());
+        model.addAttribute("jobs", jobDao.getAll());
         return "add";
     }
 

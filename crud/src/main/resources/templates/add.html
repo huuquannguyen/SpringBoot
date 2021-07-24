@@ -21,12 +21,12 @@
             </div>
             <p class="text-danger" th:if="${#fields.hasErrors('job')}" th:errors="*{job}" style="color: red;" >Job Error</p>
             <label for="job">Select job: </label>
-            <select th:field = "*{job}" id="job">
-                <option value="Dev">Developer</option>
-                <option value="Singer">Singer</option>
-                <option value="Footballer">Footballer</option>
-                <option value="Student">Student</option>
-            </select> <br> <br>       
+            <select th:field = "*{job}" id="job" name = "job">
+                <option th:each = "personJob : ${jobs}" value="${personJob.name}" th:text = "${personJob.name}"></option>
+            </select>
+            <span>
+                <a th:href="@{/job}">+</a>
+            </span> <br> <br>       
             <label for="isFemale">Female</label>
             <input type="radio" th:field = "*{gender}" value="true" id="isFemale">
             <label for="isFemale">Male</label>

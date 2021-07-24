@@ -4,6 +4,7 @@
 <head th:replace="template.html :: header('People')"></head>
 
 <body>
+    <nav th:replace="template.html :: menu"></nav>
     <div class="container"  >
         <div class="search" style="display: flex; justify-content: center; padding: 30px 0;">
             <form method="POST" th:object="${search}" style="width: 100%; display: flex; justify-content: center;">
