@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template::header('Blog')">
+</head>
+
+<body>
+    <nav th:replace="template::menu"></nav>
+    <div class="container">
+        <div class="form"
+            style="margin: 150px auto; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <form action="" th:object="${style}" method="POST" style="width: 60%;">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Background Color</label>
+                    <select class="form-select" id="inputGroupSelect01" th:field="*{bgColor}">
+                        <option value="black">Black</option>
+                        <option value="white">White</option>
+                        <option value="gray">Gray</option>
+                        <option value="orange">Orange</option>
+                        <option value="maroon">Maroon</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3 margin-top-20" style="margin-top: 50px;">
+                    <label class="input-group-text" for="inputGroupSelect01">Text Color</label>
+                    <select class="form-select" id="inputGroupSelect01" th:field="*{textColor}">
+                        <option value="black">Black</option>
+                        <option value="white">White</option>
+                        <option value="gray">Gray</option>
+                        <option value="orange">Orange</option>
+                        <option value="maroon">Maroon</option>
+                    </select>
+                </div>
+                <label for="customRange1" class="form-label margin-top-20" style="margin-top: 40px;">Font Size</label>
+                <input type="range" class="form-range" id="customRange1" min="5" max="30" th:field="*{textSize}"
+                    width="80%">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>0.5em</span>
+                    <span>3em</span>
+
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 50px;" class="margin-top-20">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script th:replace = "template :: changeStyle"></script>
+</body>
+
+</html>
