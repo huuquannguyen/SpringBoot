@@ -11,26 +11,26 @@
             style="margin: 150px auto; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <form action="" th:object="${style}" method="POST" style="width: 60%;">
                 <div class="input-group mb-3">
-                    <label class="input-group-text" for="inputGroupSelect01">Background Color</label>
+                    <label class="input-group-text" for="inputGroupSelect01" th:text="#{bg_color}">Background Color</label>
                     <select class="form-select" id="inputGroupSelect01" th:field="*{bgColor}">
-                        <option value="black">Black</option>
-                        <option value="white">White</option>
-                        <option value="gray">Gray</option>
-                        <option value="orange">Orange</option>
-                        <option value="maroon">Maroon</option>
+                        <option value="black" th:text="#{black}">Black</option>
+                        <option value="white" th:text="#{white}">White</option>
+                        <option value="gray" th:text="#{gray}">Gray</option>
+                        <option value="orange" th:text="#{orange}">Orange</option>
+                        <option value="maroon" th:text="#{maroon}">Maroon</option>
                     </select>
                 </div>
                 <div class="input-group mb-3 margin-top-20" style="margin-top: 50px;">
-                    <label class="input-group-text" for="inputGroupSelect01">Text Color</label>
+                    <label class="input-group-text" for="inputGroupSelect01" th:text="#{text_color}">Text Color</label>
                     <select class="form-select" id="inputGroupSelect01" th:field="*{textColor}">
-                        <option value="black">Black</option>
-                        <option value="white">White</option>
-                        <option value="gray">Gray</option>
-                        <option value="orange">Orange</option>
-                        <option value="maroon">Maroon</option>
+                        <option value="black" th:text="#{black}">Black</option>
+                        <option value="white" th:text="#{white}">White</option>
+                        <option value="gray" th:text="#{gray}">Gray</option>
+                        <option value="orange" th:text="#{orange}">Orange</option>
+                        <option value="maroon" th:text="#{maroon}">Maroon</option>
                     </select>
                 </div>
-                <label for="customRange1" class="form-label margin-top-20" style="margin-top: 40px;">Font Size</label>
+                <label for="customRange1" class="form-label margin-top-20" style="margin-top: 40px;" th:text="#{font_size}">Font Size</label>
                 <input type="range" class="form-range" id="customRange1" min="5" max="30" th:field="*{textSize}"
                     width="80%">
                 <div style="display: flex; justify-content: space-between;">
@@ -39,7 +39,7 @@
 
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 50px;" class="margin-top-20">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary" th:text="#{save}">Save</button>
                 </div>
             </form>
         </div>

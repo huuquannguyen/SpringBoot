@@ -9,5 +9,4 @@ public class CookieApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CookieApplication.class, args);
 	}
-
 }

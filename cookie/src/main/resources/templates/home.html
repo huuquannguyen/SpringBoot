@@ -5,7 +5,7 @@
     <nav th:replace = "template::menu"></nav>
     <div class="container">
         <div style="margin: 100px auto;">
-            <p style="text-align: center">This is the home page<p>
+            <p style="text-align: center" th:text = "#{info_home}">This is the home page<p>
         </div>
     </div>
     <script th:replace = "template :: changeStyle"></script>
