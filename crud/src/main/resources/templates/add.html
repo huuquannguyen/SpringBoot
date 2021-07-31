@@ -25,7 +25,7 @@
                 <option th:each = "personJob : ${jobs}" value="${personJob.name}" th:text = "${personJob.name}"></option>
             </select>
             <span>
-                <a th:href="@{/job}">+</a>
+                <a th:href="@{/job/add}">+</a>
             </span> <br> <br>       
             <label for="isFemale">Female</label>
             <input type="radio" th:field = "*{gender}" value="true" id="isFemale">

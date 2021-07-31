@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template :: header('checkout')">
+</head>
+
+<body>
+  <nav th:replace="template :: nav(${cart.orderLines.size()})"></nav>
+
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Manufacturer</th>
+          <th scope="col">Price</th>
+          <th scope="col">Count</th>
+          <th scope="col">Sub Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="orderLine, iStat:${cart.orderLines}">
+          <th scope="row" th:text="${iStat.index} +1"></th>
+          <td th:text="${orderLine.product.name}">Sony WXMH 1000</td>
+          <td th:text="${orderLine.product.manufacturer}">Sony</td>
+          <td th:text="${#numbers.formatInteger(orderLine.product.price, 3, 'POINT')}">4000000</td>
+          <td style="display: flex; align-items: center;">
+            <div th:text="${orderLine.count}" style="margin-right: 10px;"> 1 </div>
+            <div class="d-grid gap-2 d-md-block">
+              <button class="btn btn-primary" type="button" style="padding:0 10px;"
+                th:onclick="|window.location.href='/increase/${orderLine.product.id}'|">+</button>
+              <button class="btn btn-primary" type="button" style="padding:0 12px;"
+                th:onclick="|window.location.href='/decrease/${orderLine.product.id}'|"> - </button>
+            </div>
+          </td>
+
+          <td th:text="${#numbers.formatInteger(orderLine.product.price * orderLine.count, 3, 'POINT')}">4000000</td>
+        </tr>
+        <tr>
+          <td colspan="3"></td>
+          <td colspan="2">Raw Total</td>
+          <td th:text="${#numbers.formatInteger(cart.rawTotal, 3, 'POINT')}">4000000</td>
+        </tr>
+        <tr>
+          <td colspan="3"></td>
+          <td colspan="2">Discount</td>
+          <td th:text="${#numbers.formatInteger(-cart.discount, 3, 'POINT')}">4000000</td>
+        </tr>
+        <tr>
+          <td colspan="3"></td>
+          <td colspan="2">VAT</td>
+          <td th:text="${#numbers.formatInteger(cart.vatTax, 3, 'POINT')}">4000000</td>
+        </tr>
+        <tr>
+          <td colspan="3"></td>
+          <td colspan="2">Final Total</td>
+          <td th:text="${#numbers.formatInteger(cart.total, 3, 'POINT')}">4000000</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="wrap-info" style="display: flex; justify-content: center;">
+      <div class="info" style="width: 60%; margin-top: 80px;">
+        <h3>Customer Infomation</h3>
+        <form th:object="${info}" method="POST">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" th:field="*{name}">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              th:field="*{email}">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Phone number</label>
+            <input type="number" class="form-control" id="exampleInputPassword1" th:field="*{phoneNumber}">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>
