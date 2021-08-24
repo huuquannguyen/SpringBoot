@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template.html :: header('Login')">
+</head>
+
+<body>
+  <nav th:replace="template.html :: nav_login"></nav>
+  <div class="container">
+    <form th:object="${account}" method="POST">
+      <span th:if="${#fields.hasErrors('global')}" th:errorclass="error" th:errors="*{global}"></span>
+      <div class="row mb-3">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">User name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputEmail3" th:field="*{username}">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="inputPassword3" th:field="*{password}">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+    <p style="text-align: center;" th:text="${loginFromProduct} ? 'You must login first.'">You must login first</p>
+  </div>
+</body>
+
+</html>

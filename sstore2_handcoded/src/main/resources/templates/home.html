@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="template.html :: header('Home')">
+</head>
+<body>
+    <nav th:replace="template.html :: ${session.isLogin} ? nav_main : nav_login"></nav>
+    <h1>home</h1>
+</body>
+</html>

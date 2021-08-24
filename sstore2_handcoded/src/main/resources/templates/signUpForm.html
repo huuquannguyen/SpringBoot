@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template.html :: header('Sign Up')">
+</head>
+
+<body>
+    <nav th:replace="template.html :: nav_login"></nav>
+    <div class="container">
+        <form class="row g-3" th:object="${user}" method="POST">
+            <span th:if="${#fields.hasErrors('account.username')}" th:errorclass="error" th:errors="*{account.username}"></span>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">User name</label>
+                <input type="text" class="form-control" id="inputEmail4" th:field="*{account.username}">
+            </div>
+            <span th:if="${#fields.hasErrors('account.password')}" th:errorclass="error" th:errors="*{account.password}"></span>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Password</label>
+                <input type="password" class="form-control" id="inputPassword4" th:field="*{account.password}">
+            </div>
+            <span th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}"></span>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Name</label>
+                <input type="text" class="form-control" id="inputAddress"  th:field="*{name}">
+            </div>
+            <span th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></span>
+            <div class="col-12">
+                <label for="inputAddress" class="form-label">Email</label>
+                <input type="email" class="form-control" id="inputAddress" th:field="*{email}" >
+            </div>
+            <span th:if="${#fields.hasErrors('phone')}" th:errorclass="error" th:errors="*{phone}"></span>
+            <div class="col-12">
+              <label for="inputAddress" class="form-label">Phone</label>
+              <input type="text" class="form-control" id="inputAddress" th:field="*{phone}" >
+            </div>
+            <span th:if="${#fields.hasErrors('address.city')}" th:errorclass="error" th:errors="*{address.city}"></span>
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">City</label>
+                <input type="text" class="form-control" id="inputCity" th:field="*{address.city}">
+            </div>
+            <span th:if="${#fields.hasErrors('address.state')}" th:errorclass="error" th:errors="*{address.state}"></span>
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">State</label>
+                <select id="inputState" class="form-select" th:field="*{address.state}">
+                    <option selected value="">Choose...</option>
+                    <option value="Ha noi">Ha noi</option>
+                    <option value="Tp HCM">Tp.HCM</option>
+                    <option value="Da nang">Da nang</option>
+                </select>
+            </div>
+            <span th:if="${#fields.hasErrors('address.zip')}" th:errorclass="error" th:errors="*{address.zip}"></span>
+            <div class="col-md-2">
+                <label for="inputZip" class="form-label">Zip</label>
+                <input type="text" class="form-control" id="inputZip" th:field="*{address.zip}">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
