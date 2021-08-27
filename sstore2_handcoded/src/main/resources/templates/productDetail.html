@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template.html :: header(${product.name})">
+</head>
+
+<body>
+    <nav th:replace="template.html :: nav_main">
+    </nav>
+    <div class="container">
+        <h1 th:text=${product.name} style="text-align: center; margin-bottom: 80px;"></h1>
+        <div class="d-flex">
+            <img width="500px" th:src="@{'/photos/product/' + ${product.photo}}" alt="" style="margin-right: 30px;">
+            <div class="d-flex flex-column justify-content-between">
+                <h3 class="card-title" >Name: <span th:text="${product.name}" style="margin-left: 10px;"></span></h3>
+                <h4 class="card-text" >Price: <span th:text="${product.price}" style="margin-left: 10px;"></span> $</h4>
+                <h4 class="card-text" >Brand: <span th:text="${product.brand}" style="margin-left: 10px;"></span></h4>
+                <h4 class="card-text">Quantity: <span th:text="${product.quantity}" style="margin-left: 10px;"></span></h4>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

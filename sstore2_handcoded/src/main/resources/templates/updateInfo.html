@@ -1,30 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head th:replace="template.html :: header('Sign Up')">
+<head th:replace="template.html :: header('Update')">
 </head>
-
 <body>
-    <nav th:replace="template.html :: nav_login"></nav>
+    <nav th:replace="template.html :: nav_main"></nav>
+    <h1 style="text-align: center;">User</h1>
     <div class="container">
         <form class="row g-3" th:object="${user}" method="POST" enctype="multipart/form-data">
-
+            <input type="hidden" th:field=*{account.username}>
+            <input type="hidden" th:field=*{account.password}>
             <div class="col-md-6">
                 <div class="d-flex justify-content-between">
                     <label for="inputEmail4" class="form-label">User name</label>
-                    <span th:if="${#fields.hasErrors('account.username')}" th:errorclass="error"
-                        th:errors="*{account.username}"></span>
                 </div>
-                <input type="text" class="form-control" id="inputEmail4" th:field="*{account.username}">
-            </div>
-
-            <div class="col-md-6">
-                <div class="d-flex justify-content-between">
-                    <label for="inputPassword4" class="form-label">Password</label>
-                    <span th:if="${#fields.hasErrors('account.password')}" th:errorclass="error"
-                        th:errors="*{account.password}"></span>
-                </div>
-                <input type="password" class="form-control" id="inputPassword4" th:field="*{account.password}">
+                <p class="form-control" id="inputEmail4" th:text="*{account.username}"></p>
             </div>
 
             <div class="col-12">
@@ -93,10 +82,9 @@
                 <input class="form-control" type="file" id="formFile" th:field="*{photo}">
             </div>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary">Apply</button>
             </div>
         </form>
     </div>
 </body>
-
 </html>

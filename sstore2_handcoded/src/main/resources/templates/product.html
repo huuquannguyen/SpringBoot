@@ -1,9 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head th:replace="template.html :: header('Product')">
 </head>
+
 <body>
     <nav th:replace="template.html :: nav_main"></nav>
-    <h1>Product</h1>
+    <h1 style="text-align: center; margin-bottom: 60px;">Product</h1>
+    <div class="container">
+        <div class="d-flex justify-content-around align-items-center flex-wrap" style="width: 100%;">
+            <div class="d-flex flex-column justify-content-center align-items-center " th:each="product : ${products}">
+                <a th:href="@{/product/{id}(id=${product.id})}">
+                    <div>
+                        <img width="450px" th:src="@{'/photos/product/'+${product.photo}}" alt="">
+                    </div>
+                </a>
+                <h3 class="card-title" th:text="${product.name}"></h3>
+                <!-- <p class="card-text" th:text="${product.price}"></p>
+                <p class="card-text" th:text="${product.brand}"></p>
+                <p class="card-text" th:text="${product.quantity}"></p> -->
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

@@ -34,7 +34,7 @@ public class UserRepo implements Dao<User> {
     }
 
     @Override
-    public void add(User t) {
+    public void create(User t) {
         int index = list.size();
         t.setId(index + 1);
         list.add(t);
@@ -47,13 +47,16 @@ public class UserRepo implements Dao<User> {
 
     @Override
     public void update(User u) {
-        searchById(u.getId()).ifPresent(updateUser -> {
+        Optional<User> user = searchById(u.getId());
+        user.ifPresent(updateUser -> {
             updateUser.setAccount(u.getAccount());
             updateUser.setAddress(u.getAddress());
             updateUser.setEmail(u.getEmail());
             updateUser.setName(u.getName());
             updateUser.setPhone(u.getPhone());
+            updateUser.setPhoto(u.getPhoto());
         });
+        // System.out.println(list.get(u.getId()));
     }
 
     public Optional<User> searchByAccount(Account a){
@@ -64,6 +67,10 @@ public class UserRepo implements Dao<User> {
         return list
         .stream()
         .filter(user -> user.getAccount().getUsername().equals(u.getAccount().getUsername())).findFirst();
+    }
+
+    public void updateUserInfo(User u){
+        this.list.set(u.getId(), u);
     }
     
 }

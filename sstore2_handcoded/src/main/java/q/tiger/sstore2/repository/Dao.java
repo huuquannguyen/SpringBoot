@@ -11,7 +11,7 @@ public interface Dao<T> {
 
     Optional<T> searchById(int id);
 
-    void add(T t);
+    void create(T t);
 
     void remove(int id);
 

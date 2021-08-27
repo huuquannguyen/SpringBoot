@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import q.tiger.sstore2.exception.StorageException;
 import q.tiger.sstore2.model.Account;
+import q.tiger.sstore2.model.User;
 import q.tiger.sstore2.service.UserService;
 
 @Controller
@@ -38,7 +41,7 @@ public class LoginController {
         if(result.hasErrors()){
             return "login";
         }else{
-            session.setAttribute("isLogin", true);
+            userService.saveUserToSession(account, session);
             return "redirect:/product";
         }
     }

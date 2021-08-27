@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="template.html :: header('User')">
+</head>
+
+<body>
+    <nav th:replace="template.html :: nav_main"></nav>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="text-center">
+                <img th:src="@{'/photos/user/' + ${session.photo}}" class="rounded" style="height: 500px;"/>
+            </div>
+            <h2>Name: <span th:text="${session.userSession.name}"></span></h2>
+            <h3>Email: <span th:text="${session.userSession.email}"></span></h3>
+            <h3>Phone: <span th:text="${session.userSession.phone}"></span></h3>
+            <h4>Address: <span th:text="${session.userSession.address.city}"></span> - <span
+                    th:text="${session.userSession.address.state}"></span> - <span
+                    th:text="${session.userSession.address.zip}"></span></h4>
+            <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/user/update">Update</a></button>
+        </div>
+    </div>
+</body>
+</html>
