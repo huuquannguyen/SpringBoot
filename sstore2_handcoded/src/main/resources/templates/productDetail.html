@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <nav th:replace="template.html :: nav_main">
+    <nav th:replace="template.html :: nav_main(${itemNumber})">
     </nav>
     <div class="container">
         <h1 th:text=${product.name} style="text-align: center; margin-bottom: 80px;"></h1>

@@ -38,8 +38,8 @@
         </div>
       </nav>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="nav_main">
-        <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light align-items-center" th:fragment="nav_main(itemNumber)">
+        <div class="container-fluid align-items-center">
           <a class="navbar-brand" th:href="@{/}">Home</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -54,7 +54,8 @@
               </li>
             </ul>
           </div>
-          <div>
+          <div class="d-flex align-items-center">
+            <a th:href="@{/cart/mycart}" th:text="|Cart (${itemNumber})|" class="btn btn-primary"></a>
             <a class="nav-link d-flex align-items-center" aria-current="page" th:href="@{/user}">
               <p><img th:src="@{'/photos/user/' + ${session.photo}}" alt="" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;"></p>
               <p th:text="${session.userSession.name}" class="text-dark"></p>

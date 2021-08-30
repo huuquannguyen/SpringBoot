@@ -70,7 +70,8 @@ public class UserRepo implements Dao<User> {
     }
 
     public void updateUserInfo(User u){
-        this.list.set(u.getId(), u);
+        System.out.println(u.getId());
+        this.list.set(u.getId() - 1, u);
     }
     
 }

@@ -5,20 +5,27 @@
 </head>
 
 <body>
-    <nav th:replace="template.html :: nav_main"></nav>
+    <nav th:replace="template.html :: nav_main(${itemNumber})"></nav>
+    <h1 style="text-align: center; margin-bottom: 30px;"><span th:text="${session.userSession.name}"></span></h1>
     <div class="container d-flex justify-content-center align-items-center">
         <div class="d-flex flex-column justify-content-center align-items-center">
-            <div class="text-center">
-                <img th:src="@{'/photos/user/' + ${session.photo}}" class="rounded" style="height: 500px;"/>
+            <div class="text-center" style="margin-bottom: 30px;">
+                <img th:src="@{'/photos/user/' + ${session.photo}}" class="rounded" style="height: 500px;" />
             </div>
-            <h2>Name: <span th:text="${session.userSession.name}"></span></h2>
-            <h3>Email: <span th:text="${session.userSession.email}"></span></h3>
-            <h3>Phone: <span th:text="${session.userSession.phone}"></span></h3>
-            <h4>Address: <span th:text="${session.userSession.address.city}"></span> - <span
-                    th:text="${session.userSession.address.state}"></span> - <span
-                    th:text="${session.userSession.address.zip}"></span></h4>
-            <button class="btn btn-primary"><a class="text-decoration-none text-white" href="/user/update">Update</a></button>
+            <div class="info" style="margin-bottom: 30px;">
+                <h4>Email: <span th:text="${session.userSession.email}"></span></h4>
+                <h4>Phone: <span th:text="${session.userSession.phone}"></span></h4>
+                <h4>Address: <span th:text="${session.userSession.address.city}"></span> - <span
+                        th:text="${session.userSession.address.state}"></span> - <span
+                        th:text="${session.userSession.address.zip}"></span></h4>
+            </div>
+            <div style="font-size: 1em;">
+                <a class="text-decoration-none " href="/user/update">Update Infomation </a>
+                <span style="color: rgb(123, 144, 238);">|</span>
+                <a class="text-decoration-none" href="/user/confirm"> Change Password</a>
+            </div>
         </div>
     </div>
 </body>
+
 </html>

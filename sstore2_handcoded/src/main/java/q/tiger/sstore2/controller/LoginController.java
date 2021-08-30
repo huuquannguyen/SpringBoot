@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import q.tiger.sstore2.exception.StorageException;
 import q.tiger.sstore2.model.Account;
-import q.tiger.sstore2.model.User;
 import q.tiger.sstore2.service.UserService;
 
 @Controller

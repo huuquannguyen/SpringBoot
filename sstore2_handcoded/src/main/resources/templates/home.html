@@ -3,7 +3,12 @@
 <head th:replace="template.html :: header('Home')">
 </head>
 <body>
-    <nav th:replace="template.html :: ${session.userSession} ? nav_main : nav_login"></nav>
+    <div th:if="${session.userSession}">
+        <nav th:replace="template.html :: nav_main(${itemNumber})"></nav>
+    </div>
+    <div th:unless="${session.userSession}">
+        <nav th:replace="template.html :: nav_login"></nav>
+    </div>
     <h1>home</h1>
 </body>
 </html>

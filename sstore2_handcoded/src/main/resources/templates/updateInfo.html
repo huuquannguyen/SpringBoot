@@ -3,7 +3,7 @@
 <head th:replace="template.html :: header('Update')">
 </head>
 <body>
-    <nav th:replace="template.html :: nav_main"></nav>
+    <nav th:replace="template.html :: nav_main(${itemNumber})"></nav>
     <h1 style="text-align: center;">User</h1>
     <div class="container">
         <form class="row g-3" th:object="${user}" method="POST" enctype="multipart/form-data">

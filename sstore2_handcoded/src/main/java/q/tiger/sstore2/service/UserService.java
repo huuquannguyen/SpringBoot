@@ -67,4 +67,9 @@ public class UserService {
             throw new StorageException(msg, e);
         }
     }
+
+    public boolean isLogin(HttpSession session){
+        var userSession = session.getAttribute("userSession");
+        return userSession != null;
+    }
 }
