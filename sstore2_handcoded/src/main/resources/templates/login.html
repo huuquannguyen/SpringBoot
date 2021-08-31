@@ -7,6 +7,7 @@
 <body>
   <nav th:replace="template.html :: nav_login"></nav>
   <div class="container">
+    <h1 style="text-align: center; padding: 20px">Login</h1>
     <form th:object="${account}" method="POST">
       <span th:if="${#fields.hasErrors('global')}" th:errorclass="error" th:errors="*{global}"></span>
       <div class="row mb-3">
@@ -21,7 +22,7 @@
           <input type="password" class="form-control" id="inputPassword3" th:field="*{password}">
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
+      <button type="submit" class="btn btn-primary">Login</button>
     </form>
     <p class="error" style="text-align: center;" th:text="${loginFromProduct} ? 'You must login first.'">You must login first</p>
   </div>

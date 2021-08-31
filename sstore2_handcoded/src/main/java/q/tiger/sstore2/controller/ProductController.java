@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import q.tiger.sstore2.model.Product;
@@ -47,7 +48,6 @@ public class ProductController {
 
     @PostMapping
     public String processSearch(@RequestParam("key") String key, Model model){
-        System.out.println(key);
         List<Product> products = productService.searchProduct(key);
         model.addAttribute("products", products);
         return "product";
