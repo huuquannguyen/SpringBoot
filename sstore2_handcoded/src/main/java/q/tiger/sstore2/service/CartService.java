@@ -12,20 +12,24 @@ import org.springframework.stereotype.Service;
 import q.tiger.sstore2.model.Cart;
 import q.tiger.sstore2.model.OrderLine;
 import q.tiger.sstore2.model.Product;
+import q.tiger.sstore2.model.User;
 import q.tiger.sstore2.repository.ProductRepo;
 
 @Service
 public class CartService {
 
     @Autowired
-    ProductRepo productRepo;
+    private ProductRepo productRepo;
+
+    @Autowired
+    private UserService userService;
 
     public void addToCart(HttpSession session, int id){
-        HashMap<Integer, OrderLine> cart = new HashMap<>();
-        var rawCart = session.getAttribute("CART");
-        if(rawCart instanceof HashMap){
-            cart = (HashMap<Integer, OrderLine>) rawCart;
+        User user = (User)session.getAttribute("userSession");
+        if(user == null){
+            user = new User();
         }
+        HashMap<Integer, OrderLine> cart = user.getMyCart();
         Optional<Product> product = productRepo.searchById(id);
         if(product.isPresent()){
             OrderLine orderLine = cart.get(id);
@@ -36,15 +40,16 @@ public class CartService {
                 cart.put(id, new OrderLine(product.get(), 1));
             }
         }
+        userService.updateUserInfo(user, session);
         session.setAttribute("CART", cart);
     }
 
     public void decreaseProductQuantity(HttpSession session, int id){
-        HashMap<Integer, OrderLine> cart = new HashMap<>();
-        var rawCart = session.getAttribute("CART");
-        if(rawCart instanceof HashMap){
-            cart = (HashMap<Integer, OrderLine>) rawCart;
+        User user = (User)session.getAttribute("userSession");
+        if(user == null){
+            user = new User();
         }
+        HashMap<Integer, OrderLine> cart = user.getMyCart();
         Optional<Product> product = productRepo.searchById(id);
         if(product.isPresent()){
             OrderLine orderLine = cart.get(id);
@@ -56,43 +61,50 @@ public class CartService {
                     cart.put(id, orderLine);
                 }
             }
+            userService.updateUserInfo(user, session);
             session.setAttribute("CART", cart);
         }
     }
 
     public void deleteOrderLine(int id, HttpSession session){
-        HashMap<Integer, OrderLine> cart = new HashMap<>();
-        var rawCart = session.getAttribute("CART");
-        if(rawCart instanceof HashMap){
-            cart = (HashMap<Integer, OrderLine>) rawCart;
+        User user = (User)session.getAttribute("userSession");
+        if(user == null){
+            user = new User();
         }
+        HashMap<Integer, OrderLine> cart = user.getMyCart();
         Optional<Product> product = productRepo.searchById(id);
         if(product.isPresent()){
             cart.remove(id);
         }
+        userService.updateUserInfo(user, session);
         session.setAttribute("CART", cart);
     }
 
     public int getNumberOfProductInCart(HttpSession session){
-        HashMap<Integer, OrderLine> cart = new HashMap<>();
-        var rawCart = session.getAttribute("CART");
-        if(rawCart instanceof HashMap){
-            cart = (HashMap<Integer, OrderLine>) rawCart;
-            return cart.values().stream().mapToInt(OrderLine::getQuantity).sum();
-        }else{
-            return 0;
+        User user = (User)session.getAttribute("userSession");
+        if(user == null){
+            user = new User();
         }
+        HashMap<Integer, OrderLine> cart = user.getMyCart();
+        return cart.values().stream().mapToInt(OrderLine::getQuantity).sum();
     }
 
     public Cart getCart(HttpSession session){
-        HashMap<Integer,OrderLine> cart = new HashMap<>();
-        var rawCart = session.getAttribute("CART");
-        if(rawCart instanceof HashMap){
-            cart = (HashMap<Integer, OrderLine>) rawCart;
-            List<OrderLine> orderLines = cart.values().stream().toList();
-            return new Cart(orderLines, 0.02, true);
-        }else{
-            return new Cart();
+        User user = (User)session.getAttribute("userSession");
+        if(user == null){
+            user = new User();
         }
+        HashMap<Integer, OrderLine> cart = user.getMyCart();
+        List<OrderLine> orderLines = cart.values().stream().toList();
+        return new Cart(orderLines, 0.02, true);
+        // HashMap<Integer,OrderLine> cart = new HashMap<>();
+        // var rawCart = session.getAttribute("CART");
+        // if(rawCart instanceof HashMap){
+        //     cart = (HashMap<Integer, OrderLine>) rawCart;
+        // List<OrderLine> orderLines = cart.values().stream().toList();
+        // return new Cart(orderLines, 0.02, true);
+        // }else{
+        //     return new Cart();
+        // }
     }
 }

@@ -26,6 +26,12 @@ public class UserService {
     @Value("${upload.path.user}")
     private String path;
 
+    public User createANewUser(){
+        User user = new User();
+        userRepo.create(user);
+        return user;
+    }
+
     public boolean login(Account account) {
         return userRepo.searchByAccount(account).isPresent();
     }

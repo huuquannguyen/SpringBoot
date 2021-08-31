@@ -55,6 +55,7 @@ public class UserRepo implements Dao<User> {
             updateUser.setName(u.getName());
             updateUser.setPhone(u.getPhone());
             updateUser.setPhoto(u.getPhoto());
+            updateUser.setMyCart(u.getMyCart());
         });
         // System.out.println(list.get(u.getId()));
     }
@@ -66,12 +67,12 @@ public class UserRepo implements Dao<User> {
     public Optional<User> searchUsername(User u){
         return list
         .stream()
-        .filter(user -> user.getAccount().getUsername().equals(u.getAccount().getUsername())).findFirst();
+        .filter(user -> user.getAccount().getUsername().equals(u.getAccount().getUsername()))
+        .findFirst();
     }
 
     public void updateUserInfo(User u){
-        System.out.println(u.getId());
-        this.list.set(u.getId() - 1, u);
+        this.list.set(u.getId(), u);
     }
     
 }
