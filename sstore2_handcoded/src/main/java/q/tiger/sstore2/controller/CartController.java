@@ -26,12 +26,15 @@ public class CartController {
     @ModelAttribute("itemNumber")
     public int numberOfItems(HttpSession session){
         return cartService.getNumberOfProductInCart(session);
-    } 
+    }
 
     @GetMapping("/add/{id}")
     public String addtoCart(@PathVariable int id, HttpSession session){
         if(userService.isLogin(session)){
             cartService.addToCart(session, id);
+        }
+        if(session.getAttribute("queryKey") != null){
+            return "redirect:/product?key=" + (String) session.getAttribute("queryKey");
         }
         return "redirect:/product";
     }

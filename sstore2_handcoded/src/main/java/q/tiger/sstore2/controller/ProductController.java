@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import q.tiger.sstore2.model.Product;
@@ -35,10 +34,16 @@ public class ProductController {
     }
     
     @GetMapping
-    public String showProducts(HttpSession session, Model model, RedirectAttributes redirectAttributes){
+    public String showProducts(HttpSession session, Model model, RedirectAttributes redirectAttributes, @RequestParam(value = "key", required = false) String key){
+        session.removeAttribute("queryKey");
         var isLogin = session.getAttribute("userSession");
-        if(isLogin != null){   
-            model.addAttribute("products", productService.getAllProduct());
+        if(isLogin != null){
+            if(key == null){
+                model.addAttribute("products", productService.getAllProduct());
+            }else{
+                session.setAttribute("queryKey", key);
+                model.addAttribute("products", productService.searchProduct(key));
+            }   
             return "product";
         }else{
             redirectAttributes.addFlashAttribute("loginFromProduct", true);
@@ -46,12 +51,12 @@ public class ProductController {
         }
     }
 
-    @PostMapping
-    public String processSearch(@RequestParam("key") String key, Model model){
-        List<Product> products = productService.searchProduct(key);
-        model.addAttribute("products", products);
-        return "product";
-    }
+    // @PostMapping
+    // public String processSearch(@RequestParam("key") String key, Model model){
+    //     List<Product> products = productService.searchProduct(key);
+    //     model.addAttribute("products", products);
+    //     return "product";
+    // }
 
     @GetMapping("/{id}")
     public String showProductDetail(@PathVariable("id") int id, Model model){

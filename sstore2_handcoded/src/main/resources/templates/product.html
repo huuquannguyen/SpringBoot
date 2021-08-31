@@ -8,8 +8,8 @@
     <nav th:replace="template.html :: nav_main(${itemNumber})"></nav>
     <div class="container">
         <h1 style="text-align: center; margin-bottom: 40px;">Product</h1>
-        <form class="d-flex" method="POST" style="margin-bottom: 40px;">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="key">
+        <form class="d-flex" method="GET" style="margin-bottom: 40px;">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="key" th:value="${queryKey}">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <div class="d-flex justify-content-around align-items-center flex-wrap" style="width: 100%;">
