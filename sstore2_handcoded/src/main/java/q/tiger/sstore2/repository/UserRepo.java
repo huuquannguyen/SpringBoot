@@ -57,7 +57,6 @@ public class UserRepo implements Dao<User> {
             updateUser.setPhoto(u.getPhoto());
             updateUser.setMyCart(u.getMyCart());
         });
-        // System.out.println(list.get(u.getId()));
     }
 
     public Optional<User> searchByAccount(Account a){

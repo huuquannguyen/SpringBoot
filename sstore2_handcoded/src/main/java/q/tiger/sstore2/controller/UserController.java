@@ -1,5 +1,7 @@
 package q.tiger.sstore2.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,16 +15,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import q.tiger.sstore2.exception.StorageException;
 import q.tiger.sstore2.model.Account;
+import q.tiger.sstore2.model.OrderLine;
 import q.tiger.sstore2.model.User;
 import q.tiger.sstore2.service.CartService;
 import q.tiger.sstore2.service.UserService;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("myCart")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -47,9 +53,11 @@ public class UserController {
 
     @GetMapping("/update")
     public String updateForm(HttpSession session, Model model) {
-        var user = session.getAttribute("userSession");
-        if (user instanceof User) {
+        var rawUser = session.getAttribute("userSession");
+        if (rawUser instanceof User) {
+            User user = (User) rawUser;
             model.addAttribute("user", user);
+            model.addAttribute("myCart", user.getMyCart());
             return "updateInfo";
         } else {
             return "redirect:/product";
@@ -57,7 +65,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String processUpdateUserInfo(@Valid @ModelAttribute User user, BindingResult result, HttpSession session) {
+    public String processUpdateUserInfo(@Valid @ModelAttribute User user, BindingResult result, HttpSession session, SessionStatus st) {
         if (user.getPhoto() == null) {
             result.addError(new FieldError("user", "photo", "Photo is required"));
         }
@@ -72,6 +80,9 @@ public class UserController {
             if (result.hasErrors()) {
                 return "updateInfo";
             } else {
+                HashMap<Integer, OrderLine> cart =(HashMap<Integer, OrderLine>) session.getAttribute("myCart");
+                user.setMyCart(cart);
+                st.setComplete();
                 userService.updateUserInfo(user, session);
                 return "userInfo";
             }
@@ -96,8 +107,6 @@ public class UserController {
     @PostMapping("/confirm")
     public String processConfirm(@Valid Account account, BindingResult result, HttpSession session, RedirectAttributes redirectAttributes){
         User user = (User) session.getAttribute("userSession");
-        System.out.println(account.getUsername() + "-" + account.getPassword());
-        System.out.println(user.getAccount().getUsername() + "-" + user.getAccount().getPassword());
         if(!account.equals(user.getAccount())){
             result.addError(new FieldError("account", "password", "Wrong password."));
         }
@@ -143,7 +152,7 @@ public class UserController {
                 return "changePassword";
             }else{
                 user.setAccount(account);
-                userService.updateUserInfo(user, session);
+                // userService.updateUserInfo(user, session);
                 return "changePasswordSuccess";
             }
         }

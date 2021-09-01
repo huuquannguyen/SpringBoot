@@ -40,7 +40,6 @@ public class CartService {
                 cart.put(id, new OrderLine(product.get(), 1));
             }
         }
-        userService.updateUserInfo(user, session);
         session.setAttribute("CART", cart);
     }
 
@@ -61,7 +60,6 @@ public class CartService {
                     cart.put(id, orderLine);
                 }
             }
-            userService.updateUserInfo(user, session);
             session.setAttribute("CART", cart);
         }
     }
@@ -76,7 +74,6 @@ public class CartService {
         if(product.isPresent()){
             cart.remove(id);
         }
-        userService.updateUserInfo(user, session);
         session.setAttribute("CART", cart);
     }
 

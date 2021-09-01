@@ -7,8 +7,9 @@
     <h1 style="text-align: center;">User</h1>
     <div class="container">
         <form class="row g-3" th:object="${user}" method="POST" enctype="multipart/form-data">
-            <input type="hidden" th:field=*{account.username}>
+            <input type="hidden" th:field=*{id}>
             <input type="hidden" th:field=*{account.password}>
+            <input type="hidden" th:field=*{account.username}>
             <div class="col-md-6">
                 <div class="d-flex justify-content-between">
                     <label for="inputEmail4" class="form-label">User name</label>

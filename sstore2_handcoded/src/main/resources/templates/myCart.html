@@ -30,15 +30,24 @@
                         <div class="d-flex align-items-center">
                             <div th:text="${orderLine.quantity}">Quantity</div>
                             <div style="margin-left: 10px;">
-                                <a class="btn btn-primary" th:href="@{/cart/increaseQuantity/{id}(id=${orderLine.product.id})}">+</a>
-                                <a class="btn btn-primary" th:href="@{/cart/decreaseQuantity/{id}(id=${orderLine.product.id})}">-</a>
-                                <a class="btn btn-danger" th:href="@{/cart/deleteOrderLine/{id}(id=${orderLine.product.id})}">Remove</a>
+                                <a class="btn btn-primary"
+                                    th:href="@{/cart/increaseQuantity/{id}(id=${orderLine.product.id})}">+</a>
+                                <a class="btn btn-primary"
+                                    th:href="@{/cart/decreaseQuantity/{id}(id=${orderLine.product.id})}">-</a>
+                                <a class="btn btn-danger"
+                                    th:href="@{/cart/deleteOrderLine/{id}(id=${orderLine.product.id})}">Remove</a>
                             </div>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div>
+            <p th:each="orderLine : ${cart.orderLines}">
+                <span th:text="${orderLine.product.name}"></span> x <span th:text="${orderLine.quantity}"></span> :
+                <span th:text="${orderLine.product.price * orderLine.quantity}"></span> $
+            </p>
+        </div>
     </div>
 </body>
 

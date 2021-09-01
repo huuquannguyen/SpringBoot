@@ -36,6 +36,7 @@ public class ProductController {
     public String showProducts(HttpSession session, Model model, RedirectAttributes redirectAttributes, @RequestParam(value = "key", required = false) String key){
         session.removeAttribute("queryKey");
         var isLogin = session.getAttribute("userSession");
+        System.out.println(isLogin);
         if(isLogin != null){
             if(key == null){
                 model.addAttribute("products", productService.getAllProduct());

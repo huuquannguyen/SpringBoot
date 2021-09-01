@@ -14,7 +14,6 @@ public class ProductRepo implements Dao<Product>{
 
     public ProductRepo() {
         intiData();
-        System.out.println(list);
     }
 
     @Override

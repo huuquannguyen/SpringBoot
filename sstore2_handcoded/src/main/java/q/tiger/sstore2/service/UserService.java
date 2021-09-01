@@ -26,11 +26,11 @@ public class UserService {
     @Value("${upload.path.user}")
     private String path;
 
-    public User createANewUser(){
-        User user = new User();
-        userRepo.create(user);
-        return user;
-    }
+    // public User createANewUser(){
+    //     User user = new User();
+    //     userRepo.create(user);
+    //     return user;
+    // }
 
     public boolean login(Account account) {
         return userRepo.searchByAccount(account).isPresent();
@@ -49,7 +49,7 @@ public class UserService {
     }
 
     public void updateUserInfo(User user, HttpSession session){
-        userRepo.updateUserInfo(user);
+        userRepo.update(user);
         session.setAttribute("userSession", user);
         session.setAttribute("photo", user.getPhoto().getOriginalFilename());
     }
