@@ -16,24 +16,34 @@
         <table class="table">
             <thead>
               <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Brand</th>
-                <th scope="col">Made In</th>
-                <th scope="col">Price</th>
+                <th scope="col">
+                  <a th:href="@{'/product/' + ${currPage} + '?sortField=id&sortDir=' + ${reverseDir} }">ID</a>
+                </th>
+                <th scope="col">
+                  <a  th:href="@{'/product/' + ${currPage} + '?sortField=name&sortDir=' + ${reverseDir} }">Name</a>
+                </th>
+                <th scope="col">
+                  <a th:href="@{'/product/' + ${currPage} + '?sortField=brand&sortDir=' + ${reverseDir} }">Brand</a>
+                </th>
+                <th scope="col">
+                  <a th:href="@{'/product/' + ${currPage} + '?sortField=madeIn&sortDir=' + ${reverseDir} }">Made in</a>
+                </th>
+                <th scope="col">
+                  <a th:href="@{'/product/' + ${currPage} + '?sortField=price&sortDir=' + ${reverseDir} }">Price</a>
+                </th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
             <tbody th:each="product : ${products}">
               <tr>
-                <th scope="row" th:text="${product.id}">1</th>
+                <th scope="row" th:text="${product.id}"></th>
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.brand}"></td>
                 <td th:text="${product.madeIn}"></td>
                 <td th:text="${product.price}"></td>
                 <td>
-                  <a th:href="@{/product/delete/{id}(id = ${product.id})}" th:text="Delete"></a> |
-                  <a th:href="@{/product/edit/{id}(id = ${product.id})}" th:text="Edit"></a>
+                  <a th:href="@{'/product/delete/' + ${currPage} + '/{id}'(id = ${product.id})}" th:text="Delete"></a> |
+                  <a th:href="@{'/product/edit/' + ${currPage} + '/{id}'(id = ${product.id})}" th:text="Edit"></a>
                 </td>
               </tr>
             </tbody>
@@ -51,7 +61,7 @@
               <a th:href="@{/product/0}">First</a>
             </div>
             <div th:each= "page : ${pageNum}" style="margin-right: 20px;">
-              <a th:href="@{/product/{id}(id = ${page})}" th:text="${page + 1}"></a>
+              <a th:href="@{'/product/{id}' + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} (id = ${page})}" th:text="${page + 1}"></a>
             </div>
             <div style="margin-right: 20px;" th:if="${currPage} != null">
               <a th:href="@{/product/{id}(id = ${currPage} + 1)}">Next</a>
